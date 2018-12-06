@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="QuizParser" class="model.VerbsParser">
+    </bean>
+
+    <bean id="QuizStorage" class="service.QuizStorage">
+        <constructor-arg name="filename" value="/verbs.csv" />
+        <constructor-arg name="parser" ref="QuizParser" />
+    </bean>
+
+    <bean id="QuizShuffler" class="service.QuizShuffler">
+        <constructor-arg name="storage" ref="QuizStorage" />
+    </bean>
+
+</beans>
