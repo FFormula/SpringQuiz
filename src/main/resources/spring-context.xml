@@ -4,16 +4,19 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="QuizParser" class="model.VerbsParser">
+    <bean id="IQuizParser" class="model.VerbsParser">
     </bean>
 
     <bean id="QuizStorage" class="service.QuizStorage">
         <constructor-arg name="filename" value="/verbs.csv" />
-        <constructor-arg name="parser" ref="QuizParser" />
+        <constructor-arg name="parser" ref="IQuizParser" />
     </bean>
 
     <bean id="QuizShuffler" class="service.QuizShuffler">
         <constructor-arg name="storage" ref="QuizStorage" />
+    </bean>
+
+    <bean id="IDialog" class="service.Dialog">
     </bean>
 
 </beans>
