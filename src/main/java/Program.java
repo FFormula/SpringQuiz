@@ -18,7 +18,7 @@ public class Program {
                 .setCorrectMessage("Правильно!")
                 .setInvalidMessage("Ошибка. Верный ответ");
 
-        dialog.print("Напишите перевод и все основные формы глаголов:");
+        dialog.print("Напишите перевод и все основные формы глаголов:\n");
         int result = exam.start(5);
         dialog.print("Ваш результат: " + result + "%\n");
     }

@@ -25,12 +25,13 @@ public class Exam {
     public int start(int count)  {
         int points = 0;
         for (IQuiz quiz : selector.getRandomQuizList(count)) {
-            String answer = dialog.input(String.format("%20s: ", quiz.getQuestion()));
+            dialog.print(String.format("%20s: ", quiz.getQuestion()));
+            String answer = dialog.input();
             if (answer.equals(quiz.getAnswer())) {
-                dialog.print(String.format("%21s", correctMessage));
+                dialog.print(String.format("%21s%n", correctMessage));
                 points++;
             } else
-                dialog.print(String.format("%20s: %s", invalidMessage, quiz.getAnswer()));
+                dialog.print(String.format("%20s: %s%n", invalidMessage, quiz.getAnswer()));
         }
         return (100 * points) / count;
     }

@@ -13,13 +13,7 @@ public class Dialog implements IDialog {
 
     @Override
     public void print(String message) {
-        System.out.println(message);
-    }
-
-    @Override
-    public String input(String message) {
         System.out.print(message);
-        return input();
     }
 
     @Override
