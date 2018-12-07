@@ -2,7 +2,6 @@ package model;
 
 import face.IQuizParser;
 import face.IQuiz;
-import model.Verb;
 
 public class VerbsParser implements IQuizParser {
 
@@ -11,7 +10,7 @@ public class VerbsParser implements IQuizParser {
         String[] cols = line.split(",", 4);
         if (cols.length != 4)
             throw new RuntimeException("Line must contains 4 fields: " + line);
-        return (IQuiz)new Verb(
+        return new Verb(
                 cols[0] + " " + cols[1] + " " + cols[2],
                 cols[3]);
     }

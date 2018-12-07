@@ -4,19 +4,31 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="IQuizParser" class="model.VerbsParser">
+    <bean id="quizParser" class="model.VerbsParser">
     </bean>
 
-    <bean id="QuizStorage" class="service.QuizStorage">
+    <bean id="quizStorage" class="service.QuizStorage">
         <constructor-arg name="filename" value="/verbs.csv" />
-        <constructor-arg name="parser" ref="IQuizParser" />
+        <constructor-arg name="parser" ref="quizParser" />
     </bean>
 
-    <bean id="QuizShuffler" class="service.QuizShuffler">
-        <constructor-arg name="storage" ref="QuizStorage" />
+    <bean id="quizShuffler" class="service.QuizShuffler">
+        <constructor-arg name="storage" ref="quizStorage" />
     </bean>
 
-    <bean id="IDialog" class="service.Dialog">
+    <bean id="dialog" class="service.Dialog">
     </bean>
+
+    <bean id="exam" class="service.Exam">
+        <constructor-arg name="shuffler" ref="quizShuffler" />
+        <constructor-arg name="dialog" ref="dialog" />
+        <property name="questionsCount" value="3" />
+        <property name="welcomeMessage" value="Напишите перевод и все основные формы глаголов:" />
+        <property name="correctMessage" value="Правильно!" />
+        <property name="invalidMessage" value="Ошибка. Верный ответ" />
+        <property name="percentMessage" value="Ваш результат: %d%%" />
+    </bean>
+
+
 
 </beans>

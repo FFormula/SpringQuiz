@@ -2,29 +2,34 @@ package service;
 
 import face.IDialog;
 import face.IQuiz;
-import service.QuizShuffler;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
 
 public class Exam {
-    private QuizShuffler selector;
-    private IDialog dialog;
+    private final QuizShuffler shuffler;
+    private final IDialog dialog;
+    private int questionsCount;
 
     private String correctMessage = "OK";
     private String invalidMessage = "Wrong";
+    private String welcomeMessage = "Welcome";
+    private String percentMessage = "Result %d";
 
-    public Exam(QuizShuffler selector, IDialog dialog) {
-        this.selector = selector;
+    public Exam(QuizShuffler shuffler, IDialog dialog) {
+        this.shuffler = shuffler;
         this.dialog = dialog;
     }
 
     public Exam setCorrectMessage(String correctMessage) { this.correctMessage = correctMessage; return this; }
     public Exam setInvalidMessage(String invalidMessage) { this.invalidMessage = invalidMessage; return this; }
+    public Exam setWelcomeMessage(String welcomeMessage) { this.welcomeMessage = welcomeMessage; return this; }
+    public Exam setPercentMessage(String percentMessage) { this.percentMessage = percentMessage; return this; }
+    public Exam setQuestionsCount(int questionsCount) { this.questionsCount = questionsCount; return this; }
 
-    public int start(int count)  {
+    public void start()  {
+        if (questionsCount <= 0)
+            return;
+        dialog.print(welcomeMessage + "\n");
         int points = 0;
-        for (IQuiz quiz : selector.getRandomQuizList(count)) {
+        for (IQuiz quiz : shuffler.getRandomQuizList(questionsCount)) {
             dialog.print(String.format("%20s: ", quiz.getQuestion()));
             String answer = dialog.input();
             if (answer.equals(quiz.getAnswer())) {
@@ -33,6 +38,7 @@ public class Exam {
             } else
                 dialog.print(String.format("%20s: %s%n", invalidMessage, quiz.getAnswer()));
         }
-        return (100 * points) / count;
+        int percent = (100 * points) / questionsCount;
+        dialog.print(String.format(percentMessage + "%n", percent));
     }
 }

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuizStorage {
-    private IQuizParser parser;
-    private String filename;
+    private final IQuizParser parser;
+    private final String filename;
 
     public QuizStorage(String filename, IQuizParser parser) {
         this.filename = filename;
@@ -21,7 +21,7 @@ public class QuizStorage {
         return new BufferedReader(new InputStreamReader(stream));
     }
 
-    public List<IQuiz> getQuizList() {
+    List<IQuiz> getQuizList() {
         try (BufferedReader reader = getReader()) {
             List<IQuiz> list = new ArrayList<>();
             while (reader.ready())
